@@ -60,12 +60,15 @@ export class AppConfigService {
     return response;
   
   }
+
+  async ExpandVersesFromChapter(textIds:number[]) : Promise<ExpandedText[]> {
+    var values = await this.get<ExpandedText[]>('Content/GetVerses?' + textIds.map(m => `textid=${m}`).join('&'))
+    return values.parsedBody;
+  }
   GetChaptersFromBeids(beids:number[]): BookModelView[]
   {
-    console.log(`bookeditions count ${textWithMeta.bookEditions.length} ${textWithMeta.text.length} ${textWithMeta.text[0].beid}`)
-    
-    const textMeta = textWithMeta.text.filter(f => beids.includes( f.beid));
-   
+    //console.log(`bookeditions count ${textWithMeta.bookEditions.length} ${textWithMeta.text.length} ${textWithMeta.text[0].beid}`)    
+    const textMeta = textWithMeta.text.filter(f => beids.includes( f.beid));   
    
     textMeta.forEach(f => {
       f.bookid = textWithMeta.bookEditions.filter(where => where.beid === f.beid).map(m => m.bookid)[0];
@@ -88,7 +91,9 @@ export class AppConfigService {
               })
         }))
     })); 
-    
+    //get chapters right
+    temp.forEach(f => 
+       f.bookEditions.forEach(fe => fe.chapters.sort((a, b)=> a.ch - b.ch)));
     return temp;
   }
   get getCacheMeta(): groupedBooks[]

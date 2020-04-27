@@ -12,9 +12,13 @@ export class ReadBible {
 
   }
 
-expandChapter(div: HTMLInputElement) {
+async expandChapter(div: HTMLInputElement) {
+  var i = div.parentElement.getAttribute('data-id');
+  var beidandch = i.split('-').map(m => Number.parseInt(m));
   
 }
+
+
 @computedFrom('this.beids')
 get selectedBookEditions(): BookModelView[] {
   const ret = this.config.GetChaptersFromBeids(this.beids);

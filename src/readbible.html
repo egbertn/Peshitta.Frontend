@@ -8,19 +8,25 @@
         </div>
       </div>
     </div>
-    <div class="row au-stagger">
-      <div class="col-sm-6 col-md-3 card-container au-animate" repeat.for="book of selectedBookEditions" >
-          <div class="card">
-
-              <div class="content">
-                  <template repeat.for="be of book.bookEditions">
-                    <p if.bind="be.langid===90" class="name sychead" innerhtml.bind="be.meta.title"></p> 
-                    <p if.bind="be.langid!==90" class="name"  innerhtml.bind="be.meta.title"></p> 
-                  </template> 
-                  
-              </div>
-          </div>
+    <div class="row au-stagger" repeat.for="book of selectedBookEditions">
+      <div class="col-sm-6 col-md-3 card-container au-animate" innerhtml.bind="book.title">       
       </div>
+      <template repeat.for="be of book.bookEditions">
+        <div class="col-sm-6 col-md-3 card-container au-animate">
+          <div class="card">
+            <div class="content">                
+              <p if.bind="be.langid===90" class="name sychead" innerhtml.bind="be.meta.title"></p> 
+              <p if.bind="be.langid!==90" class="name"  innerhtml.bind="be.meta.title"></p> 
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3  card-container au-animate" repeat.for="chapter of be.chapters">
+            <div class="card">
+              <div class="content" click.delegate="expandChapter($event.target)" data-id="${be.meta.beid}_${chapter.ch}" >
+                <p>Chapter ${chapter.ch}</p>
+              </div>
+            </div>
+        </div>
+      </template>
     </div>
 </section>
 </template>
