@@ -7,6 +7,7 @@ import {groupBy, distinct} from '../models/group';
 let instance = null;
 export
 let textWithMeta: TextWithMeta = null;
+let expandedTextCache: ExpandedText[] = [];
 @autoinject
 export class AppConfigService {
   private appConfig: AppConfig;
@@ -61,10 +62,14 @@ export class AppConfigService {
   
   }
 
-  async ExpandVersesFromChapter(textIds:number[]) : Promise<ExpandedText[]> {
+  async ExpandVersesFromChapter(beids: number[], ch: number) : Promise<void> {
+      // extracts textid from textWithMeta.text by identified params
+    const textIds = textWithMeta.text.filter(f => beids.includes(f.beid) && f.ch === ch).map(m => m.textid);
     var values = await this.get<ExpandedText[]>('Content/GetVerses?' + textIds.map(m => `textid=${m}`).join('&'))
-    return values.parsedBody;
+    var newCacheItems = values.parsedBody;
+    newCacheItems.forEach(f => expandedTextCache.push(f));
   }
+  
   GetChaptersFromBeids(beids:number[]): BookModelView[]
   {
     //console.log(`bookeditions count ${textWithMeta.bookEditions.length} ${textWithMeta.text.length} ${textWithMeta.text[0].beid}`)    
@@ -85,7 +90,7 @@ export class AppConfigService {
                         ch: Number.parseInt( mmm.key.split('|')[1]),
                         texts: mmm.members.map(exp => 
                         { 
-                          return {beid: exp.beid,  chapter: exp.ch, verse: exp.aid, done: false} as ExpandedText
+                          return {beid: exp.beid,  chapter: exp.ch, verse: exp.aid, textid: exp.textid, done:false} as ExpandedText
                         })
                   } as  ChapterModelView 
               })
@@ -93,7 +98,21 @@ export class AppConfigService {
     })); 
     //get chapters right
     temp.forEach(f => 
-       f.bookEditions.forEach(fe => fe.chapters.sort((a, b)=> a.ch - b.ch)));
+       f.bookEditions.forEach(fe => { 
+         fe.chapters.sort((a, b)=> a.ch - b.ch);
+         fe.chapters.forEach(ff => ff.texts.forEach(fff => {
+           let idx = expandedTextCache.findIndex(findVerse => findVerse.textid === fff.textid);
+           if (idx >= 0) {
+              var expandedText = expandedTextCache[idx];
+              fff.content = expandedText.content;
+              fff.footer = expandedText.footer;
+              fff.header = expandedText.header;
+              fff.done = true;
+           }
+         }))
+      }
+    ));
+    
     return temp;
   }
   get getCacheMeta(): groupedBooks[]
@@ -105,7 +124,6 @@ export class AppConfigService {
   
   async getMetaData(pubCodes: string[]): Promise<TextWithMeta>
   {
-
     try {
       var response = await this.get<TextWithMeta>(
         'Content/BookMetaData/?' + pubCodes.map(r => 'pub=' + r).join('&')

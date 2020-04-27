@@ -8,10 +8,12 @@
         </div>
       </div>
     </div>
-    <div class="row au-stagger" repeat.for="book of selectedBookEditions">
-      <div class="col-sm-6 col-md-3 card-container au-animate" innerhtml.bind="book.title">       
+    <div class="row au-stagger">
+      <div class="col-sm-6 col-md-3 card-container au-animate" innerhtml.bind="selectedBookEditions[0].title">       
       </div>
-      <template repeat.for="be of book.bookEditions">
+    </div>
+    <div class="row au-stagger" repeat.for="book of selectedBookEditions">
+      <template repeat.for="be of book.bookEditions" if.bind="book.bookEditions">
         <div class="col-sm-6 col-md-3 card-container au-animate">
           <div class="card">
             <div class="content">                
@@ -19,13 +21,24 @@
               <p if.bind="be.langid!==90" class="name"  innerhtml.bind="be.meta.title"></p> 
             </div>
           </div>
-          <div class="col-sm-6 col-md-3  card-container au-animate" repeat.for="chapter of be.chapters">
-            <div class="card">
-              <div class="content" click.delegate="expandChapter($event.target)" data-id="${be.meta.beid}_${chapter.ch}" >
-                <p>Chapter ${chapter.ch}</p>
+          <div class="row au-stagger" repeat.for="chapter of be.chapters">
+            <div class="col-sm-6 col-md-3 card-container au-animate" >
+              <div class="card">
+                <div class="content" click.delegate="expandChapter($event.target)" data-id="${book.bookId}_${chapter.ch}" >
+                  <p>Chapter ${chapter.ch}</p>
+                </div>
               </div>
+              <div class="row au-stagger" repeat.for="verse of chapter.texts">
+                <div class="col-sm-6 col-md-3  card-container au-animate">
+                  <div class="card" if.bind="verse.done">
+                    <div class="content">
+                      <p innerhtml.bind="verse.content"></p>
+                    </div>
+                  </div>
+                </div>
             </div>
-        </div>
+            </div>
+          </div> 
       </template>
     </div>
 </section>
