@@ -66,9 +66,3 @@ export class BookModelView {
   bookId: number;
   bookEditions: BookEditionModelView[]; 
 }
-/**
- * ViewModel contains only the meta belonging to a beid (bookeditionid)
- */
-export class BookEditionWithChaptersMeta {
-  books:BookModelView[];
-}

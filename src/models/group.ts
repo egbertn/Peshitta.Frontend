@@ -1,3 +1,5 @@
+import { isNumber } from "util";
+
 export
 class Group<T, KEY> {
   key:KEY;
@@ -7,7 +9,6 @@ class Group<T, KEY> {
   }
 }
    /**
-     * Groups a list based on a key expresses. The list must be presorted 
      * @param list  Array to be grouped. 
      * @param the key that is used to group on
      */
@@ -15,6 +16,17 @@ export
 function groupBy<T, KEY>(list:T[], func:(x:T)=>KEY): Group<T, KEY>[] {
   let res:Group<T, KEY>[] = [];
   let group:Group<T, KEY> = null;
+
+  if (list.every(f => typeof func(f) === 'number'))
+  {
+    list.sort((a, b)=> Number.parseInt(func(a).toString()) - Number.parseInt(func(b).toString()));
+  }
+  else
+  {
+    list.sort((a, b)=> func(a) > func(b) ? 1 : 
+                      (func(a) < func(b) ? -1 : 0 )
+                      );
+  }
   list.forEach((o)=>{
       let groupName = func(o);
       if (group === null) {

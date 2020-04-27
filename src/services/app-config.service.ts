@@ -1,4 +1,4 @@
-import { TextWithMeta, groupedBooks, BookEditionWithChaptersMeta, BookEditionMeta, BookModelView, BookEditionModelView, ExpandedText, ChapterModelView } from './../models/TextMeta';
+import { TextWithMeta, groupedBooks,  BookEditionMeta, BookModelView, BookEditionModelView, ExpandedText, ChapterModelView } from './../models/TextMeta';
 import { AppConfig } from '../models/appconfig';
 import {autoinject} from 'aurelia-framework';
 import {HttpResponse} from './HttpResponse';
@@ -60,13 +60,12 @@ export class AppConfigService {
     return response;
   
   }
-  GetChaptersFromBeids(beids:number[]): BookEditionWithChaptersMeta
+  GetChaptersFromBeids(beids:number[]): BookModelView[]
   {
     console.log(`bookeditions count ${textWithMeta.bookEditions.length} ${textWithMeta.text.length} ${textWithMeta.text[0].beid}`)
     
     const textMeta = textWithMeta.text.filter(f => beids.includes( f.beid));
-    const ret = new BookEditionWithChaptersMeta();
-    
+   
    
     textMeta.forEach(f => {
       f.bookid = textWithMeta.bookEditions.filter(where => where.beid === f.beid).map(m => m.bookid)[0];
@@ -89,13 +88,12 @@ export class AppConfigService {
               })
         }))
     })); 
-    ret.books = temp;
-    return ret;
+    
+    return temp;
   }
   get getCacheMeta(): groupedBooks[]
   {
-    const sorted = textWithMeta.bookEditions.sort((a,b) => a.bookid - b.bookid);
-    const g = groupBy(sorted, (t)=> t.bookid).map((group)=>{return {bookId: group.key, bookEditions: group.members}});
+    const g = groupBy( textWithMeta.bookEditions, (t)=> t.bookid).map((group)=>{return {bookId: group.key, bookEditions: group.members}});
     g.sort((a, b) => a.bookEditions[0].bo - b.bookEditions[0].bo)
     return g;
   }
