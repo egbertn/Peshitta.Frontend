@@ -1,20 +1,22 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# `bijbel`
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This project is bootstrapped by [aurelia-cli](https://github.com/aurelia/cli).
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+For more information, go to https://aurelia.io/docs/cli/cli-bundler
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Run dev app
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Run `au run`, then open `http://localhost:9000`
+
+To open browser automatically, do `au run --open`.
+
+To change dev server port, do `au run --port 8888`.
+
+To change dev server host, do `au run --host 127.0.0.1`
+
+
+**PS:** You could mix all the flags as well, `au run --host 127.0.0.1 --port 7070 --open`
+
+## Build for production
+
+Run `au build --env prod`.

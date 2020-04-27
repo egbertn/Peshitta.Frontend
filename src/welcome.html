@@ -1,0 +1,28 @@
+<template>
+  <section class="au-animate">
+    <h2>${heading}</h2>
+    <form role="form">
+      <div class="form-group">
+
+        <label for="fn">Bijbelvertaling selectie</label>
+        <input type="text" value.bind="reference" class="form-control" id="fn" placeholder="Bijbelvers referentie">
+
+        <template repeat.for="item of selectedPublications">
+          <div class="form-group">
+            <label for="pub_${item.key}">${item.value}</label>
+            
+            <input type="checkbox" id="pub_${item.key}" value.to-view="item.key" title="${item.value}" checked.bind="item.selected" change.delegate="change($event.target)" />
+          </div>
+        </template>
+       
+      </div>
+      <div class="form-group">
+        <label for="remember">Keuze onthouden</label>
+        <input type="checkbox" id="rembember" value="1"/>
+      </div>
+      
+      
+      <a href="#/books" class="btn btn-default" >Volgende >></a>
+    </form>
+  </section>
+</template>

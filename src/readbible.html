@@ -1,0 +1,30 @@
+<template>
+  <section class="au-animate">
+    <h2>${heading}</h2>
+    <div class="row au-stagger">
+      <div class="card">
+        <div class="content">
+          
+        </div>
+      </div>
+    </div>
+    <div class="row au-stagger">
+      <div class="col-sm-6 col-md-3 card-container au-animate" repeat.for="book of selectedBookEditions().bookEditions" >
+          <div class="card">
+
+              <div class="content">
+                  <template repeat.for="be of book.bookEditions">
+                    <p if.bind="be.langid===90" class="name sychead" innerhtml.bind="be.title"></p> 
+                    <p if.bind="be.langid!==90" class="name"  innerhtml.bind="be.title"></p> 
+                  </template> 
+                  <p>
+                    <a class="btn btn-default" href="${bookEditionsQueryStrings(book.bookEditions)}">
+                      Lezen
+                    </a>
+                  </p>
+              </div>
+          </div>
+      </div>
+    </div>
+</section>
+</template>

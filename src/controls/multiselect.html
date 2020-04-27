@@ -1,0 +1,5 @@
+<template>
+  <select value.bind="value" multiple="multiple" ref="select">
+    <option repeat.for="option of options" value.bind="option.value">${option.label}</option>
+  </select>
+</template>
