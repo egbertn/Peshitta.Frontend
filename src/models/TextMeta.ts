@@ -39,7 +39,7 @@ export class TextWithMeta
   bookEditions: BookEditionMeta[];
 }
 export class ExpandedText {
-  textid: number;
+  textId: number;
   beid: number;
   chapter: number;
   verse: number;

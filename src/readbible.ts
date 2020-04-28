@@ -9,7 +9,7 @@ export class ReadBible {
   private beids:number[];  
   //cache which has been read from api
   private bookidAndChapter:{bookid:number, chapters:number[] } [];
-  private bookidAndChapterString: string;
+  bookidAndChapterString: string;
   constructor(private config: AppConfigService) {
     this.bookidAndChapter = [];
     this.bookidAndChapterString = '';
@@ -38,14 +38,17 @@ async expandChapter(div: HTMLInputElement) {
   this.bookidAndChapterString = this.bookidAndChapter.map(m => m.bookid.toString() + ':' + m.chapters.join()).join();
 }
 
-@computedFrom('this.bookidAndChapterString')
+@computedFrom('bookidAndChapterString')
 get selectedBookEditions(): BookModelView[] {
   const ret = this.config.GetChaptersFromBeids(this.beids);
   return ret;
 }
 
 activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
-    this.beids = params.beid.map((m: string) => Number.parseInt(m));
+    if (typeof params.beid === 'string')
+      this.beids = [Number.parseInt(params.beid)]
+    else
+      this.beids = params.beid.map((m: string) => Number.parseInt(m));
 
   }
 }

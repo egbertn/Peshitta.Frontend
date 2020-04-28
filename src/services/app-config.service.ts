@@ -4,6 +4,7 @@ import {autoinject} from 'aurelia-framework';
 import {HttpResponse} from './HttpResponse';
 import {KeyValue} from './../models/keyValue';
 import {groupBy, distinct} from '../models/group';
+
 let instance = null;
 export
 let textWithMeta: TextWithMeta = null;
@@ -90,7 +91,7 @@ export class AppConfigService {
                         ch: Number.parseInt( mmm.key.split('|')[1]),
                         texts: mmm.members.map(exp => 
                         { 
-                          return {beid: exp.beid,  chapter: exp.ch, verse: exp.aid, textid: exp.textid, done:false} as ExpandedText
+                          return <ExpandedText>{beid: exp.beid,  chapter: exp.ch, verse: exp.aid, textId: exp.textid, done:false} 
                         })
                   } as  ChapterModelView 
               })
@@ -101,7 +102,7 @@ export class AppConfigService {
        f.bookEditions.forEach(fe => { 
          fe.chapters.sort((a, b)=> a.ch - b.ch);
          fe.chapters.forEach(ff => ff.texts.forEach(fff => {
-           let idx = expandedTextCache.findIndex(findVerse => findVerse.textid === fff.textid);
+           let idx = expandedTextCache.findIndex(findVerse => findVerse.textId === fff.textId);
            if (idx >= 0) {
               var expandedText = expandedTextCache[idx];
               fff.content = expandedText.content;
