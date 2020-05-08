@@ -1,5 +1,3 @@
-import { isNumber } from "util";
-
 export
 class Group<T, KEY> {
   key:KEY;

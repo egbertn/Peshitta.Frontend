@@ -1,10 +1,10 @@
 {
   "name": "bijbel",
-  "description": "An Aurelia client application.",
+  "description": "Frontend for Peshitta Bible Translation.",
   "version": "0.1.0",
   "repository": {
-    "type": "???",
-    "url": "???"
+    "type": "github",
+    "url": "adccure@vs-ssh.visualstudio.com:v3/adccure/adccure.nl/peshitta.frontend"
   },
   "license": "MIT",
   "dependencies": {

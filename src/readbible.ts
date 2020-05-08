@@ -43,7 +43,9 @@ get selectedBookEditions(): BookModelView[] {
   const ret = this.config.GetChaptersFromBeids(this.beids);
   return ret;
 }
-
+bookCount(isMediumLayout: boolean): number{
+  return isMediumLayout === false ? 12 / this.beids.length : 12 / this.beids.length *2;
+}
 activate(params: any, routeConfig: RouteConfig, navigationInstruction: NavigationInstruction) {
     if (typeof params.beid === 'string')
       this.beids = [Number.parseInt(params.beid)]

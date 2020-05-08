@@ -23,15 +23,15 @@ export class chapterMeta {
 }
 export class BookEditionMeta
 {
-  beid: number ;
-  bookid: number ;
-  pc: string ;
+  beid: number;
+  bookid: number;
+  pc: string;
   langid: number;
-  title: string ;
-  entitle: string ;
+  title: string;
+  entitle: string;
   descr: string;
-  bo: number ;
-  abr: string ;
+  bo: number;
+  abr: string;
 }
 export class TextWithMeta 
 {
@@ -50,7 +50,7 @@ export class ExpandedText {
 }
 
 export class ChapterModelView  {
-  ch:number;
+  meta: BookEditionMeta;
   texts:ExpandedText[];
 }
 
@@ -65,5 +65,6 @@ export class BookEditionModelView  {
 export class BookModelView {
   title: string; //main title Enlish
   bookId: number;
-  bookEditions: BookEditionModelView[]; 
+  chapters:  {ch:number, bookEditions:ChapterModelView[] }[]
+ 
 }

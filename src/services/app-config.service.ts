@@ -82,26 +82,29 @@ export class AppConfigService {
     const temp =  groupBy(textMeta, (t)=> t.bookid).map( (group)=>
       ({'bookId': group.key, 
         'title':   'temporary',
-       'bookEditions': groupBy(group.members, (tm)=> tm.beid).map(mm =>
-        ({ 
-            'meta': textWithMeta.bookEditions.filter(ff => ff.beid === mm.key)[0],
-            'chapters': groupBy( mm.members, ch => (ch.beid.toString() + '|' + ch.ch.toString()) ).map(mmm => 
-              { 
-                return {
-                        ch: Number.parseInt( mmm.key.split('|')[1]),
-                        texts: mmm.members.map(exp => 
-                        { 
-                          return <ExpandedText>{beid: exp.beid,  chapter: exp.ch, verse: exp.aid, textId: exp.textid, done:false} 
-                        })
-                  } as  ChapterModelView 
-              })
-        }))
+        'chapters': groupBy(group.members, (ch) => ch.ch.toString() + '|' + ch.bookid.toString()).map( z => ({
+          'ch': Number.parseInt( z.key.split('|')[0]),
+          'bookEditions': groupBy(z.members, (tm)=> tm.beid).map(mm =>
+            ({ 
+                'meta': textWithMeta.bookEditions.filter(ff => ff.beid === mm.key)[0],
+                'texts': mm.members.map(exp => { 
+                    return <ExpandedText>{beid: exp.beid,  chapter: exp.ch, verse: exp.aid, textId: exp.textid, done:false} 
+                  })
+            } as  ChapterModelView )
+            )
+      }))
     })); 
     //get chapters right
     temp.forEach(f => 
-       f.bookEditions.forEach(fe => { 
-         fe.chapters.sort((a, b)=> a.ch - b.ch);
-         fe.chapters.forEach(ff => ff.texts.forEach(fff => {
+    {
+       f.chapters.sort((a,b)=> a.ch - b.ch);
+       f.chapters.forEach(fe => 
+       {
+         fe.bookEditions.forEach(ff => 
+          {
+            ff.texts.sort((y,z)=> y.verse - z.verse);
+           ff.texts.forEach(fff => 
+          {        
            let idx = expandedTextCache.findIndex(findVerse => findVerse.textId === fff.textId);
            if (idx >= 0) {
               var expandedText = expandedTextCache[idx];
@@ -110,9 +113,10 @@ export class AppConfigService {
               fff.header = expandedText.header;
               fff.done = true;
            }
-         }))
-      }
-    ));
+         })
+        })
+       })
+    });
     
     return temp;
   }
@@ -148,9 +152,7 @@ export class AppConfigService {
 
     if (this.appConfig == null)
     {
-
-      this.get('Content/config').then(resp => resp.json()).then( (response: AppConfig) => {this.appConfig = response});
-   
+      this.get('Content/config').then(resp => resp.json()).then( (response: AppConfig) => {this.appConfig = response});   
     }  
     return this.appConfig;
   }
