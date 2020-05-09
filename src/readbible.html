@@ -22,7 +22,7 @@
           </div>
           <div class="row au-stagger" repeat.for="chapter of book.chapters">
             <div class="col-sm-6 col-md-3 card-container au-animate" >
-              <div class="card">
+              <div class="card button">
                 <div class="content" click.delegate="expandChapter($event.target)" data-id="${book.bookId}_${chapter.ch}" >
                   <p>Chapter ${chapter.ch}</p>
                 </div>

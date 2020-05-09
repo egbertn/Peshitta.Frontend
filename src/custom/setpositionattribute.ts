@@ -1,15 +1,17 @@
 import {autoinject} from 'aurelia-framework';
 @autoinject
 export class SetPositionCustomAttribute {
-
-    constructor(private element: Element ) {
-        var el = <HTMLElement>element;
-        el.style.top =  element.parentElement.clientTop - 10 + 'px';
-        el.style.right = element.parentElement.clientLeft + 'px';
+    private readonly element: HTMLElement;
+    constructor(element: Element ) {
+        this.element = <HTMLElement>element;
     }
     
 
     bind() {
-        console.log('la di dah');
+      let parentPos = this.element.parentElement.getBoundingClientRect();
+      this.element.style.top =  parentPos.top - 10 + 'px';
+      this.element.style.right = parentPos.right + 10 + 'px';
+      console.log(`${parentPos.top}:${parentPos.right}`)
+      this.element.style.visibility = 'visible';
     }
 }
