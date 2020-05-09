@@ -1,9 +1,9 @@
-import { TextWithMeta, groupedBooks,  BookEditionMeta, BookModelView, BookEditionModelView, ExpandedText, ChapterModelView } from './../models/TextMeta';
+import { TextWithMeta, groupedBooks,   BookModelView,  ExpandedText, ChapterModelView } from './../models/TextMeta';
 import { AppConfig } from '../models/appconfig';
 import {autoinject} from 'aurelia-framework';
 import {HttpResponse} from './HttpResponse';
 import {KeyValue} from './../models/keyValue';
-import {groupBy, distinct} from '../models/group';
+import {groupBy} from '../models/group';
 
 let instance = null;
 export

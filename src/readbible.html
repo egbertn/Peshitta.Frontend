@@ -1,4 +1,5 @@
 <template>
+  <require from="./custom/setpositionattribute.ts"></require>
   <section class="au-animate">
     <h2>${heading}</h2>
     <div class="row au-stagger">
@@ -16,7 +17,7 @@
         <div class="col-sm-12 col-md-6 card-container au-animate">
           <div class="card">
             <div class="content">
-              <p class="name" innerhtml.bind="book.title"></p>
+                <p class="name" innerhtml.bind="book.title"></p>
             </div>
           </div>
           <div class="row au-stagger" repeat.for="chapter of book.chapters">
@@ -28,8 +29,8 @@
               </div>
               <div class="row au-stagger" repeat.for="chModel of chapter.bookEditions">
                 <div class="col-sm-6 col-md-3 card-container au-animate" repeat.for="verse of chModel.texts">
-                  <div class="card" if.bind="verse.done" title="${chModel.meta.title} ${chapter.ch}:${verse.verse}">
-                    <div class="cap">${chModel.meta.title} ${chapter.ch}:${verse.verse}</div>
+                  <div class="card"  if.bind="verse.done" title="${chModel.meta.title} ${chapter.ch}:${verse.verse}">
+                    <div class="cap" set-position>${chModel.meta.title} ${chapter.ch}:${verse.verse}</div>
                     <div class="content ${chModel.meta.langid===90 ? 'syc' : ''}" >
                       <p innerhtml.bind="verse.content"></p>
                     </div>
