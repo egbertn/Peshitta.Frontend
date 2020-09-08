@@ -81,7 +81,7 @@ export class AppConfigService {
     });
     const temp =  groupBy(textMeta, (t)=> t.bookid).map( (group)=>
       ({'bookId': group.key, 
-        'title':   'temporary',
+        'title': textWithMeta.bookEditions.filter(where => where.beid === group.members[0].beid)[0].title,
         'chapters': groupBy(group.members, (ch) => ch.ch.toString() + '|' + ch.bookid.toString()).map( z => ({
           'ch': Number.parseInt( z.key.split('|')[0]),
           'bookEditions': groupBy(z.members, (tm)=> tm.beid).map(mm =>

@@ -9,19 +9,15 @@
         </div>
       </div>
     </div>
-    <div class="row au-stagger">
-      <div class="col-sm-12 col-md-6 card-container au-animate" innerhtml.bind="selectedBookEditions[0].title">       
-      </div>
-    </div>
     <div class="row au-stagger" repeat.for="book of selectedBookEditions">     
-        <div class="col-sm-12 col-md-6 card-container au-animate">
+        <div class="col-md-12 card-container au-animate">
           <div class="card">
             <div class="content">
                 <p class="name" innerhtml.bind="book.title"></p>
             </div>
           </div>
           <div class="row au-stagger" repeat.for="chapter of book.chapters">
-            <div class="col-sm-6 col-md-3 card-container au-animate" >
+            <div class="col-md-12 card-container au-animate">
               <div class="card button">
                 <div class="content" click.delegate="expandChapter($event.target)" data-id="${book.bookId}_${chapter.ch}" >
                   <p>Chapter ${chapter.ch}</p>
@@ -31,7 +27,7 @@
                 <div class="col-sm-6 col-md-3 card-container au-animate" repeat.for="verse of chModel.texts">
                   <div class="card"  if.bind="verse.done" title="${chModel.meta.title} ${chapter.ch}:${verse.verse}">
                     <div class="cap" set-position>${chModel.meta.title} ${chapter.ch}:${verse.verse}</div>
-                    <div class="content ${chModel.meta.langid===90 ? 'syc' : ''}" >
+                    <div class="content ${chModel.meta.langid===90 ? 'syc' : 'west'}" >
                       <p innerhtml.bind="verse.content"></p>
                     </div>
                   </div>
