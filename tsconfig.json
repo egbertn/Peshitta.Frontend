@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "module": "amd",
     "noImplicitAny": false,
     "declaration": false,
     "typeRoots": [
@@ -11,9 +10,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "target": "ES2017",
+    "target": "ES2020",
     "lib": [
-      "es2015",
+      "ES2017",
       "dom"
     ],
     "moduleResolution": "node",
