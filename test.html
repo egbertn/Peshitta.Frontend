@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<select id="box1">
+<option value="98">dog</option>
+<option value="7122">cat</option>
+<option value="142">bird</option>
+</select><a href="#" id="copyBtn" data-from="box1" data-to="box2"><img src="~/images/icons/copy.png" alt="add selected item" /></a>
+
+<div id="test"><select id="box2" multiple="multiple"></select><a href="#" id="removeBtn" data-from="box2"><img src="~/images/icons/copy.png" alt="add selected item" /></a>
+</div>
+<script>
+var copyBtn = document.getElementById("copyBtn");
+	copyBtn.addEventListener('click', function () {
+    let id = this.dataset.from;
+    let idTo = this.dataset.to;
+
+		let selectedWorkspaceEl = document.getElementById(id);
+    let selectedWorkspace = selectedWorkspaceEl.options[selectedWorkspaceEl.selectedIndex].text;
+
+    let selectedIds = Array.from(document.getElementById(idTo).options).map(m => m.value);
+    if (selectedIds.findIndex(s => s === selectedWorkspace) < 0)
+    {
+      let selectTo = document.getElementById(idTo);
+      let newOpt = document.createElement("option");
+      newOpt.text=selectedWorkspace;
+      newOpt.value = selectedWorkspace;
+      selectTo.options.add(newOpt);
+    }
+    var deleteBtn = document.getElementById("removeBtn");
+		deleteBtn.addEventListener('click', function () {
+      let i = 0;
+      let lstId = this.dataset.from;
+      lstRemove = document.getElementById(lstId);
+			Array.from(lstRemove.options).forEach(f => {
+				if (f.selected) {
+					lstRemove.options.remove(i);
+        }
+        i++;
+       })
+    });
+
+     
+  });
+</script>
+		
+</body>
+
+</html>
