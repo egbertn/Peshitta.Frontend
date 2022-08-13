@@ -6,7 +6,7 @@ import { KeyValue } from 'models/keyValue';
 @autoinject
 export class Welcome {
 
-  public heading: string = 'Bijbelvertaling selectie';
+  public heading: string = 'Selectie van boeken';
    public reference: string = 'Mt 10:13';
   // public lastName: string = 'Doe';
   // private previousValue: string = this.fullName;

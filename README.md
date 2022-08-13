@@ -6,7 +6,7 @@ For more information, go to https://aurelia.io/docs/cli/cli-bundler
 
 ## Run dev app
 
-Run `au run`, then open `http://localhost:9000`
+Run `au run`, then open `http://localhost:8999`
 
 To open browser automatically, do `au run --open`.
 

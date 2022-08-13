@@ -24,7 +24,14 @@ export class App {
         name: 'readbible',
         moduleId: 'readbible',
         nav:true,
-        'title': 'Lees de Bijbel'
+        'title': 'Lees Peshitta'
+      },
+      {
+        route: 'download',
+        name: 'download',
+        moduleId: 'download',
+        nav:true,
+        'title': 'Download PDF'
       }
 
     ]);

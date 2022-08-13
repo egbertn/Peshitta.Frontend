@@ -6,8 +6,8 @@ import {  RouteConfig, NavigationInstruction} from 'aurelia-router';
 
 @autoinject
 export class Books {
-  public heading: string = 'Bijbelboeken';
-  public users: any[] = [];
+  public heading = 'Het Nieuwe Testament volgens de Peshitta';
+  public users= [];
   
   constructor(private config: AppConfigService) {
 
