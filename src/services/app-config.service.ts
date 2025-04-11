@@ -22,7 +22,7 @@ export class AppConfigService {
     }
     //Todo get from /Content/publications 
     this.selectedPublications = [{value: "Peshitta NL", key:"AB", "selected": false}, {value: "Peshitta Syrisch", key: "PS", "selected": false}];
-    this.baseUrl = 'https://www.peshitta.nl/';
+    this.baseUrl = 'https://peshitta.nl/';
     this.headers = new Headers();
     this.headers.append('content-type', 'application/json');
     this.headers.append('accept', 'application/json');
